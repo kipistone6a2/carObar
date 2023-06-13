@@ -1,0 +1,13 @@
+{% snapshot dim_dealer_master %}
+{{
+    config(
+        target_database='dealerships',
+        target_schema='mart_carobar',
+        unique_key='car_version_id',
+        strategy='check',
+        check_cols=['dealer_id,car_version_Id,subdealer_Id,dealers,city,state,brand,model,variant,dealer_cost,dealer_sell_price'],
+    )
+}}
+select dealer_id,car_version_Id,subdealer_Id,dealers,city,state,brand,model,variant,dealer_cost,dealer_sell_price from DEALERSHIPS.STAGE_CAROBAR.DEALER_MASTER
+where dealer_id BETWEEN 4 AND 8
+{% endsnapshot %}
