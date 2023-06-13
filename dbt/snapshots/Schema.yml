@@ -1,0 +1,45 @@
+version: 2
+
+snapshots:
+  - name: dim_employee
+    columns:
+      - name: emp_email
+        tests:
+          - dbt_expectations.expect_column_values_to_match_like_pattern:
+              like_pattern: "%@%"
+  - name: customer_fact
+    columns:
+      - name: customer_email
+        tests:
+          - dbt_expectations.expect_column_values_to_match_like_pattern:
+              like_pattern: "%@%"
+  - name: test_drives_fact
+    columns:
+      - name: test_drive_id
+        tests:
+          - unique
+          - not_null
+  - name: dim_feature_data
+    columns:
+      - name: alloy_wheel
+        tests:
+          - dbt_expectations.expect_column_values_to_match_like_pattern_list:
+              like_pattern_list: ["Yes", "No"]
+      - name: cruise_control
+        tests:
+          - dbt_expectations.expect_column_values_to_match_like_pattern_list:
+              like_pattern_list: ["Yes", "No"]
+      - name: sunroof
+        tests:
+          - dbt_expectations.expect_column_values_to_match_like_pattern_list:
+              like_pattern_list: ["Yes", "No"]
+  - name: car_sales_fact
+    columns:
+      - name: arrival_date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: date
+      - name: sale_date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: date   
